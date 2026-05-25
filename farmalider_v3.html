@@ -45,13 +45,12 @@ button{font-family:inherit;cursor:pointer}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .g3{grid-template-columns:repeat(2,1fr)}
   .g21{grid-template-columns:1fr}
   .rubro-grid{grid-template-columns:repeat(2,1fr)!important}
   .lab-stats{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:600px){
-  /* layout */
+@media(max-width:768px){
+  /* layout — 1 columna en todo móvil */
   .wrap{padding:12px 12px 100px}
   .g2,.g3,.g21{grid-template-columns:1fr;gap:8px}
   .rubro-grid{grid-template-columns:1fr!important}
@@ -64,12 +63,14 @@ button{font-family:inherit;cursor:pointer}
   .hdr-name{font-size:15px}
   #hdr-logo{height:38px}
 
-  /* KPIs — valores compactos */
-  .kpi{padding:14px}
-  .kpi-val{font-size:22px}
-  .kpi-lbl{font-size:9px}
-  .kpi-sub{font-size:10px}
-  .kpi-ico{width:28px;height:28px;font-size:14px;margin-bottom:8px}
+  /* KPIs — 1 por fila, valor compacto que no desborde */
+  .kpi{padding:13px 14px;display:flex;align-items:center;gap:14px}
+  .kpi::after{display:none}
+  .kpi-ico{margin-bottom:0;flex-shrink:0}
+  .kpi-body{flex:1;min-width:0}
+  .kpi-lbl{font-size:10px;margin-bottom:3px}
+  .kpi-val{font-size:clamp(16px,5vw,26px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .kpi-sub{font-size:10px;margin-top:3px}
 
   /* filtros */
   .flt-row{flex-direction:column;gap:4px}
@@ -79,22 +80,22 @@ button{font-family:inherit;cursor:pointer}
   .flt-grp{gap:4px}
   .pill,.pill-nc{font-size:11px;padding:4px 10px}
 
-  /* barras productos — evita overflow del precio */
+  /* barras */
   .bi{gap:5px}
-  .bt{flex:1}
-  .bv{font-size:10px;min-width:44px}
+  .bt{flex:1.2}
+  .bv{font-size:10px;min-width:42px}
   .bn{font-size:11px}
   .rank{width:16px;font-size:9px}
 
   /* categorías */
-  .cat-nm{width:80px;font-size:11px}
-  .cat-meta{min-width:64px}
+  .cat-nm{width:90px;font-size:11px}
+  .cat-meta{min-width:60px}
   .cat-v{font-size:11px}
   .cat-p{font-size:10px}
 
   /* rangos */
-  .rng-lbl{width:62px;font-size:10px}
-  .rng-val{font-size:10px;min-width:60px}
+  .rng-lbl{width:68px;font-size:10px}
+  .rng-val{font-size:10px;min-width:58px}
 
   /* estrellas */
   .est{flex-wrap:wrap;gap:5px}
@@ -109,7 +110,7 @@ button{font-family:inherit;cursor:pointer}
   /* botón actualizar */
   .btn-ref{font-size:11px;padding:6px 10px}
 
-  /* nav — ocultar versión top, mostrar bottom */
+  /* nav top → abajo */
   .nav{display:none}
   .nav-bottom{display:flex!important}
 }
@@ -393,41 +394,53 @@ button{font-family:inherit;cursor:pointer}
 <div class="g3">
   <div class="kpi kpi-acc">
     <div class="kpi-ico ico-b"><i class="ti ti-currency-dollar"></i></div>
-    <div class="kpi-lbl">Bruto total</div>
-    <div class="kpi-val" id="k-b">—</div>
-    <div class="kpi-sub" id="k-bs"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Bruto total</div>
+      <div class="kpi-val" id="k-b">—</div>
+      <div class="kpi-sub" id="k-bs"></div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico ico-g"><i class="ti ti-package"></i></div>
-    <div class="kpi-lbl">Unidades vendidas</div>
-    <div class="kpi-val" id="k-u">—</div>
-    <div class="kpi-sub" id="k-us"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Unidades vendidas</div>
+      <div class="kpi-val" id="k-u">—</div>
+      <div class="kpi-sub" id="k-us"></div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico ico-a"><i class="ti ti-tag"></i></div>
-    <div class="kpi-lbl">SKUs activos</div>
-    <div class="kpi-val" id="k-s">—</div>
-    <div class="kpi-sub" id="k-ss"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">SKUs activos</div>
+      <div class="kpi-val" id="k-s">—</div>
+      <div class="kpi-sub" id="k-ss"></div>
+    </div>
   </div>
 </div>
 <div class="g3">
   <div class="kpi">
     <div class="kpi-ico ico-g"><i class="ti ti-arrows-up-down"></i></div>
-    <div class="kpi-lbl">Precio promedio x unidad</div>
-    <div class="kpi-val" id="k-pu">—</div>
-    <div class="kpi-sub">bruto ÷ unidades</div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Precio promedio x unidad</div>
+      <div class="kpi-val" id="k-pu">—</div>
+      <div class="kpi-sub">bruto ÷ unidades</div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico ico-p"><i class="ti ti-list-details"></i></div>
-    <div class="kpi-lbl">Líneas de venta</div>
-    <div class="kpi-val" id="k-lv">—</div>
-    <div class="kpi-sub" id="k-lvs"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Líneas de venta</div>
+      <div class="kpi-val" id="k-lv">—</div>
+      <div class="kpi-sub" id="k-lvs"></div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico ico-a"><i class="ti ti-star"></i></div>
-    <div class="kpi-lbl">Producto #1</div>
-    <div class="kpi-val" style="font-size:14px;letter-spacing:0;line-height:1.3;font-weight:700" id="k-p1">—</div>
-    <div class="kpi-sub" id="k-p1v"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Producto #1</div>
+      <div class="kpi-val" style="font-size:14px;letter-spacing:0;line-height:1.3;font-weight:700" id="k-p1">—</div>
+      <div class="kpi-sub" id="k-p1v"></div>
+    </div>
   </div>
 </div>
 
@@ -435,21 +448,27 @@ button{font-family:inherit;cursor:pointer}
 <div class="g3">
   <div class="kpi">
     <div class="kpi-ico" style="background:rgba(109,40,217,.1);color:#6d28d9"><i class="ti ti-flask"></i></div>
-    <div class="kpi-lbl">Laboratorios activos</div>
-    <div class="kpi-val" id="k-labs">—</div>
-    <div class="kpi-sub" id="k-labss"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Laboratorios activos</div>
+      <div class="kpi-val" id="k-labs">—</div>
+      <div class="kpi-sub" id="k-labss"></div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico" style="background:rgba(14,116,144,.1);color:#0e7490"><i class="ti ti-category"></i></div>
-    <div class="kpi-lbl">Categorías activas</div>
-    <div class="kpi-val" id="k-cat">—</div>
-    <div class="kpi-sub" id="k-cats"></div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Categorías activas</div>
+      <div class="kpi-val" id="k-cat">—</div>
+      <div class="kpi-sub" id="k-cats"></div>
+    </div>
   </div>
   <div class="kpi">
     <div class="kpi-ico" style="background:rgba(190,24,93,.09);color:#be185d"><i class="ti ti-chart-line"></i></div>
-    <div class="kpi-lbl">Bruto prom. por lab.</div>
-    <div class="kpi-val" id="k-plab">—</div>
-    <div class="kpi-sub">bruto ÷ laboratorios</div>
+    <div class="kpi-body">
+      <div class="kpi-lbl">Bruto prom. por lab.</div>
+      <div class="kpi-val" id="k-plab">—</div>
+      <div class="kpi-sub">bruto ÷ laboratorios</div>
+    </div>
   </div>
 </div>
 
