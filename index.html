@@ -51,31 +51,83 @@ button{font-family:inherit;cursor:pointer}
   .lab-stats{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:600px){
-  .wrap{padding:12px 12px 32px}
+  /* layout */
+  .wrap{padding:12px 12px 100px}
   .g2,.g3,.g21{grid-template-columns:1fr;gap:8px}
   .rubro-grid{grid-template-columns:1fr!important}
   .lab-stats{grid-template-columns:1fr}
+  .farm-card .g2{grid-template-columns:1fr}
+  .sec{margin:18px 0 10px;font-size:9px}
+
+  /* header */
   .hdr{flex-wrap:wrap;gap:10px}
-  .hdr-name{font-size:16px}
-  .kpi-val{font-size:24px}
+  .hdr-name{font-size:15px}
+  #hdr-logo{height:38px}
+
+  /* KPIs — valores compactos */
+  .kpi{padding:14px}
+  .kpi-val{font-size:22px}
+  .kpi-lbl{font-size:9px}
+  .kpi-sub{font-size:10px}
+  .kpi-ico{width:28px;height:28px;font-size:14px;margin-bottom:8px}
+
+  /* filtros */
   .flt-row{flex-direction:column;gap:4px}
   .flt-lbl{width:auto;text-align:left;padding-top:0}
   .lab-sw{max-width:100%}
   .lab-inp{width:100%}
-  .cat-nm{width:90px}
-  .cat-meta{min-width:70px}
-  .rng-lbl{width:68px}
-  .est{flex-wrap:wrap;gap:6px}
-  .est-mes{font-size:10px;padding:2px 7px}
+  .flt-grp{gap:4px}
+  .pill,.pill-nc{font-size:11px;padding:4px 10px}
+
+  /* barras productos — evita overflow del precio */
+  .bi{gap:5px}
+  .bt{flex:1}
+  .bv{font-size:10px;min-width:44px}
+  .bn{font-size:11px}
+  .rank{width:16px;font-size:9px}
+
+  /* categorías */
+  .cat-nm{width:80px;font-size:11px}
+  .cat-meta{min-width:64px}
+  .cat-v{font-size:11px}
+  .cat-p{font-size:10px}
+
+  /* rangos */
+  .rng-lbl{width:62px;font-size:10px}
+  .rng-val{font-size:10px;min-width:60px}
+
+  /* estrellas */
+  .est{flex-wrap:wrap;gap:5px}
+  .est-val{font-size:11px}
+
+  /* tabla */
   .prod-search-bar{flex-wrap:wrap;gap:8px}
   .prod-search-wrap{max-width:100%!important;width:100%}
-  .ptbl th,.ptbl td{padding:6px 7px;font-size:11px}
-  .ptbl .nm{max-width:130px}
-  .nav-link{padding:10px 10px;font-size:10px;gap:4px}
-  .farm-card .g2{grid-template-columns:1fr}
-  .sec{margin:18px 0 10px;font-size:9px}
-  .btn-ref span,.btn-ref{font-size:11px;padding:6px 10px}
+  .ptbl th,.ptbl td{padding:5px 6px;font-size:10px}
+  .ptbl .nm{max-width:110px;font-size:11px}
+
+  /* botón actualizar */
+  .btn-ref{font-size:11px;padding:6px 10px}
+
+  /* nav — ocultar versión top, mostrar bottom */
+  .nav{display:none}
+  .nav-bottom{display:flex!important}
 }
+
+/* ── NAV BOTTOM (mobile) ── */
+.nav-bottom{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:var(--surface);border-top:1px solid var(--border);
+  box-shadow:0 -4px 20px rgba(0,0,0,.08);
+  padding:0 4px env(safe-area-inset-bottom,0px);
+  overflow-x:auto;scrollbar-width:none;
+}
+.nav-bottom::-webkit-scrollbar{display:none}
+.nav-bottom-inner{display:flex;align-items:stretch;min-width:max-content;width:100%}
+.nav-bl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 10px;font-size:9px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap;border-top:2px solid transparent;transition:all .15s;flex:1;min-width:52px}
+.nav-bl i{font-size:18px}
+.nav-bl.active{color:var(--acc);border-top-color:var(--acc)}
 
 /* ── NAV ── */
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,247,250,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);margin:-24px -20px 24px;padding:0 20px}
@@ -492,6 +544,19 @@ button{font-family:inherit;cursor:pointer}
 </div>
 
 </div><!-- /wrap -->
+
+<nav class="nav-bottom" id="nav-bottom">
+  <div class="nav-bottom-inner">
+    <div class="nav-bl active" onclick="navTo('s-kpi',this,true)"><i class="ti ti-layout-dashboard"></i>Resumen</div>
+    <div class="nav-bl" onclick="navTo('s-rubros',this,true)"><i class="ti ti-circles"></i>Rubros</div>
+    <div class="nav-bl" onclick="navTo('s-cats',this,true)"><i class="ti ti-category"></i>Categ.</div>
+    <div class="nav-bl" onclick="navTo('s-evol',this,true)"><i class="ti ti-chart-bar"></i>Evoluc.</div>
+    <div class="nav-bl" onclick="navTo('s-labs',this,true)"><i class="ti ti-flask"></i>Labs</div>
+    <div class="nav-bl" onclick="navTo('s-rank',this,true)"><i class="ti ti-trophy"></i>Ranking</div>
+    <div class="nav-bl" onclick="navTo('s-all',this,true)"><i class="ti ti-table"></i>Productos</div>
+    <div class="nav-bl" onclick="navTo('s-anal',this,true)"><i class="ti ti-star"></i>Análisis</div>
+  </div>
+</nav>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -999,12 +1064,12 @@ function initLabSearch(){
   inp.addEventListener('keydown',e=>{if(e.key==='Escape'){drop.style.display='none';inp.value=AL;inp.blur();}});
 }
 
-function navTo(id,el){
-  event.preventDefault();
-  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+function navTo(id,el,isBottom){
+  if(event)event.preventDefault();
+  document.querySelectorAll('.nav-link,.nav-bl').forEach(a=>a.classList.remove('active'));
   el.classList.add('active');
   const t=document.getElementById(id);
-  if(t){const y=t.getBoundingClientRect().top+window.scrollY-52;window.scrollTo({top:y,behavior:'smooth'});}
+  if(t){const off=isBottom?60:52;const y=t.getBoundingClientRect().top+window.scrollY-off;window.scrollTo({top:y,behavior:'smooth'});}
 }
 
 /* scrollspy */
@@ -1014,9 +1079,8 @@ window.addEventListener('scroll',()=>{
   const scroll=window.scrollY+80;
   let cur='s-kpi';
   SPY_IDS.forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=scroll)cur=id;});
-  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
-  const activeLink=document.querySelector(SPY_LINKS[cur]);
-  if(activeLink)activeLink.classList.add('active');
+  document.querySelectorAll('.nav-link,.nav-bl').forEach(a=>a.classList.remove('active'));
+  document.querySelectorAll(SPY_LINKS[cur]).forEach(a=>a.classList.add('active'));
 },{passive:true});
 
 loadData();
