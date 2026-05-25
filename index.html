@@ -69,8 +69,8 @@ button{font-family:inherit;cursor:pointer}
   .kpi-ico{margin-bottom:0;flex-shrink:0}
   .kpi-body{flex:1;min-width:0}
   .kpi-lbl{font-size:10px;margin-bottom:3px}
-  .kpi-val{font-size:clamp(16px,5vw,26px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .kpi-sub{font-size:10px;margin-top:3px}
+  .kpi-val{font-size:clamp(20px,6vw,28px);white-space:nowrap}
+  .kpi-sub{font-size:10px;margin-top:3px;word-break:break-word}
 
   /* filtros */
   .flt-row{flex-direction:column;gap:4px}
@@ -197,8 +197,8 @@ button{font-family:inherit;cursor:pointer}
 .ico-p{background:rgba(124,58,237,.1);color:var(--pur)}
 .ico-r{background:rgba(190,24,93,.09);color:var(--rose)}
 .kpi-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--txt3);margin-bottom:6px}
-.kpi-val{font-size:30px;font-weight:800;color:var(--txt);letter-spacing:-.04em;line-height:1}
-.kpi-sub{font-size:11px;color:var(--txt3);margin-top:6px;line-height:1.4}
+.kpi-val{font-size:clamp(22px,3vw,30px);font-weight:800;color:var(--txt);letter-spacing:-.04em;line-height:1;white-space:nowrap}
+.kpi-sub{font-size:11px;color:var(--txt3);margin-top:6px;line-height:1.4;word-break:break-word}
 .kpi-sub.up{color:#16a34a;font-weight:700}
 .kpi-sub.dn{color:var(--red);font-weight:700}
 
@@ -604,6 +604,15 @@ let PROD_DATA=[],PROD_SORT={col:'bruto',dir:'desc'},PROD_PAGE=50;
 const fa=n=>new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n);
 const fn=n=>new Intl.NumberFormat('es-AR').format(Math.round(n));
 const fc=n=>'$'+new Intl.NumberFormat('es-AR',{notation:'compact',maximumFractionDigits:1}).format(n);
+// Compact formatter for KPI cards — keeps values short so they fit on mobile
+const fk=(n,curr=false)=>{
+  const p=curr?'$':'';
+  const loc=v=>v.toLocaleString('es-AR',{maximumFractionDigits:1});
+  if(n>=1e9)return p+loc(n/1e9)+'B';
+  if(n>=1e6)return p+loc(n/1e6)+'M';
+  if(n>=1e4)return p+Math.round(n/1e3).toLocaleString('es-AR')+'k';
+  return p+Math.round(n).toLocaleString('es-AR');
+};
 
 function pn(s){
   if(typeof s==='number')return s;
@@ -781,16 +790,22 @@ function render(){
   const labs=new Set(data.filter(r=>r.lab).map(r=>r.lab)).size;
   const cats=new Set(data.filter(r=>r.categoria).map(r=>r.categoria)).size;
 
-  document.getElementById('k-b').textContent=fa(tb);
-  document.getElementById('k-u').textContent=fn(tu);
+  const kbEl=document.getElementById('k-b');
+  kbEl.textContent=fk(tb,true);
+  kbEl.title=fa(tb);
+  const kuEl=document.getElementById('k-u');
+  kuEl.textContent=fk(tu);
+  kuEl.title=fn(tu)+' unidades';
   document.getElementById('k-s').textContent=fn(prods);
-  document.getElementById('k-pu').textContent=fa(pu);
+  const kpuEl=document.getElementById('k-pu');
+  kpuEl.textContent=fk(pu,true);
+  kpuEl.title=fa(pu);
   document.getElementById('k-lv').textContent=fn(tl);
   document.getElementById('k-p1').textContent=p1?p1[0].substring(0,32)+(p1[0].length>32?'…':''):'—';
-  document.getElementById('k-p1v').textContent=p1?fa(p1[1].b):'';
+  document.getElementById('k-p1v').textContent=p1?fk(p1[1].b,true)+' · '+fn(p1[1].u)+' u':'';
   document.getElementById('k-labs').textContent=fn(labs);
   document.getElementById('k-cat').textContent=fn(cats);
-  document.getElementById('k-plab').textContent=labs?fc(tb/labs):'—';
+  document.getElementById('k-plab').textContent=labs?fk(tb/labs,true):'—';
   document.getElementById('k-labss').textContent=AM?'labs en '+AM:'labs en el período';
   document.getElementById('k-cats').textContent=AM?'categorías en '+AM:'categorías en el período';
 
@@ -801,15 +816,15 @@ function render(){
     const pct=prom?((tb-prom)/prom*100):0;
     const el=document.getElementById('k-bs');
     el.className='kpi-sub '+(pct>=0?'up':'dn');
-    el.textContent=(pct>=0?'↑':'↓')+Math.abs(pct).toFixed(1)+'% vs promedio otros meses';
-    document.getElementById('k-us').textContent='';
+    el.textContent=(pct>=0?'↑':'↓')+Math.abs(pct).toFixed(1)+'% vs prom. · '+fa(tb);
+    document.getElementById('k-us').textContent=fn(tu)+' unidades';
     document.getElementById('k-ss').textContent='productos distintos en '+AM;
     document.getElementById('k-lvs').textContent='líneas registradas en '+AM;
   } else {
     const mes=[...new Set(ALL.map(r=>r.mes))].length;
     document.getElementById('k-bs').className='kpi-sub';
-    document.getElementById('k-bs').textContent=`${mes} mes${mes!==1?'es':''} · Abr–Dic 2025`;
-    document.getElementById('k-us').textContent='';
+    document.getElementById('k-bs').textContent=fa(tb)+' · '+mes+' mes'+( mes!==1?'es':'');
+    document.getElementById('k-us').textContent=fn(tu)+' unidades totales';
     document.getElementById('k-ss').textContent='productos distintos en el período';
     document.getElementById('k-lvs').textContent='registros totales del sheet';
   }
