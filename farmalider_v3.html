@@ -43,77 +43,7 @@ button{font-family:inherit;cursor:pointer}
 /* ── LAYOUT ── */
 .wrap{max-width:1280px;margin:0 auto;padding:24px 20px 40px}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .g21{grid-template-columns:1fr}
-  .rubro-grid{grid-template-columns:repeat(2,1fr)!important}
-  .lab-stats{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:768px){
-  /* layout — 1 columna en todo móvil */
-  .wrap{padding:12px 12px 100px}
-  .g2,.g3,.g21{grid-template-columns:1fr;gap:8px}
-  .rubro-grid{grid-template-columns:1fr!important}
-  .lab-stats{grid-template-columns:1fr}
-  .farm-card .g2{grid-template-columns:1fr}
-  .sec{margin:18px 0 10px;font-size:9px}
 
-  /* header */
-  .hdr{flex-wrap:wrap;gap:10px}
-  .hdr-name{font-size:15px}
-  #hdr-logo{height:38px}
-
-  /* KPIs — 1 por fila, valor compacto que no desborde */
-  .kpi{padding:13px 14px;display:flex;align-items:center;gap:14px}
-  .kpi::after{display:none}
-  .kpi-ico{margin-bottom:0;flex-shrink:0}
-  .kpi-body{flex:1;min-width:0}
-  .kpi-lbl{font-size:10px;margin-bottom:3px}
-  .kpi-val{font-size:clamp(20px,6vw,28px);white-space:nowrap}
-  .kpi-sub{font-size:10px;margin-top:3px;word-break:break-word}
-
-  /* filtros */
-  .flt-row{flex-direction:column;gap:4px}
-  .flt-lbl{width:auto;text-align:left;padding-top:0}
-  .lab-sw{max-width:100%}
-  .lab-inp{width:100%}
-  .flt-grp{gap:4px}
-  .pill,.pill-nc{font-size:11px;padding:4px 10px}
-
-  /* barras */
-  .bi{gap:5px}
-  .bt{flex:1.2}
-  .bv{font-size:10px;min-width:42px}
-  .bn{font-size:11px}
-  .rank{width:16px;font-size:9px}
-
-  /* categorías */
-  .cat-nm{width:90px;font-size:11px}
-  .cat-meta{min-width:60px}
-  .cat-v{font-size:11px}
-  .cat-p{font-size:10px}
-
-  /* rangos */
-  .rng-lbl{width:68px;font-size:10px}
-  .rng-val{font-size:10px;min-width:58px}
-
-  /* estrellas */
-  .est{flex-wrap:wrap;gap:5px}
-  .est-val{font-size:11px}
-
-  /* tabla */
-  .prod-search-bar{flex-wrap:wrap;gap:8px}
-  .prod-search-wrap{max-width:100%!important;width:100%}
-  .ptbl th,.ptbl td{padding:5px 6px;font-size:10px}
-  .ptbl .nm{max-width:110px;font-size:11px}
-
-  /* botón actualizar */
-  .btn-ref{font-size:11px;padding:6px 10px}
-
-  /* nav top → abajo */
-  .nav{display:none}
-  .nav-bottom{display:flex!important}
-}
 
 /* ── NAV BOTTOM (mobile) ── */
 .nav-bottom{
@@ -319,6 +249,78 @@ button{font-family:inherit;cursor:pointer}
 .badge-b{background:rgba(29,78,216,.1);color:var(--acc)}
 .badge-p{background:rgba(190,24,93,.09);color:var(--rose)}
 .badge-g{background:rgba(4,120,87,.1);color:var(--grn)}
+
+/* ── RESPONSIVE — van al final para ganar la cascada ── */
+@media(max-width:900px){
+  .g21{grid-template-columns:1fr}
+  .rubro-grid{grid-template-columns:repeat(2,1fr)!important}
+  .lab-stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  /* layout — 1 columna en todo móvil */
+  .wrap{padding:12px 12px 100px}
+  .g2,.g3,.g21{grid-template-columns:1fr!important;gap:8px}
+  .rubro-grid{grid-template-columns:1fr!important}
+  .lab-stats{grid-template-columns:1fr!important}
+  .farm-card .g2{grid-template-columns:1fr!important}
+  .sec{margin:18px 0 10px;font-size:9px}
+
+  /* header */
+  .hdr{flex-wrap:wrap;gap:10px}
+  .hdr-name{font-size:15px}
+  #hdr-logo{height:38px}
+
+  /* KPIs — 1 por fila, icon izquierda + texto derecha */
+  .kpi{padding:13px 14px;display:flex;align-items:center;gap:14px}
+  .kpi::after{display:none}
+  .kpi-ico{margin-bottom:0;flex-shrink:0}
+  .kpi-body{flex:1;min-width:0}
+  .kpi-lbl{font-size:10px;margin-bottom:3px}
+  .kpi-val{font-size:clamp(20px,6vw,28px);white-space:nowrap}
+  .kpi-sub{font-size:10px;margin-top:3px;word-break:break-word}
+
+  /* filtros */
+  .flt-row{flex-direction:column;gap:4px}
+  .flt-lbl{width:auto;text-align:left;padding-top:0}
+  .lab-sw{max-width:100%}
+  .lab-inp{width:100%}
+  .flt-grp{gap:4px}
+  .pill,.pill-nc{font-size:11px;padding:4px 10px}
+
+  /* barras */
+  .bi{gap:5px}
+  .bt{flex:1.2}
+  .bv{font-size:10px;min-width:42px}
+  .bn{font-size:11px}
+  .rank{width:16px;font-size:9px}
+
+  /* categorías */
+  .cat-nm{width:90px;font-size:11px}
+  .cat-meta{min-width:60px}
+  .cat-v{font-size:11px}
+  .cat-p{font-size:10px}
+
+  /* rangos */
+  .rng-lbl{width:68px;font-size:10px}
+  .rng-val{font-size:10px;min-width:58px}
+
+  /* estrellas */
+  .est{flex-wrap:wrap;gap:5px}
+  .est-val{font-size:11px}
+
+  /* tabla */
+  .prod-search-bar{flex-wrap:wrap;gap:8px}
+  .prod-search-wrap{max-width:100%!important;width:100%}
+  .ptbl th,.ptbl td{padding:5px 6px;font-size:10px}
+  .ptbl .nm{max-width:110px;font-size:11px}
+
+  /* botón actualizar */
+  .btn-ref{font-size:11px;padding:6px 10px}
+
+  /* nav top → abajo */
+  .nav{display:none}
+  .nav-bottom{display:flex!important}
+}
 </style>
 </head>
 <body>
